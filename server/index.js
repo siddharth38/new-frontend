@@ -1,16 +1,17 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
-
+const PORT = process.env.PORT || 3001
 app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  user: "root",
-  host: "localhost",
-  password: "",
-  database: "employeeSystem",
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 // register
 app.post("/create", (req, res) => {
@@ -25,7 +26,7 @@ app.post("/create", (req, res) => {
     [email],
     (err, result) => {
       if (result.length > 0) {
-        res.send(" User Already Exist ");
+        res.send("Exist");
       }
       else{db.query(
     "INSERT INTO employees  (`Firstname`, `Lastname`, `Phone`, `DOB`, `Email`, `Password`) VALUES (?,?,?,?,?,?)",
@@ -122,6 +123,6 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
-app.listen(3001, () => {
-  console.log("Yey, your server is running on port 3001");
+app.listen(PORT, () => {
+  console.log("Server OKK");
 });

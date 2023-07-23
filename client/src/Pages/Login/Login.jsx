@@ -29,7 +29,7 @@ const Login = () => {
         }).then((response) => {
             console.log(response.data)
           
-            if(response.data.id ==="")
+            if(response.data.id ==="" || response.data === "wrong input")
             {   alert(response.data)
                 
             }

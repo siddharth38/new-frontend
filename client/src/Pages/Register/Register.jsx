@@ -32,7 +32,10 @@ const Register = () => {
              alert('plz enter valid email addres');
         } else if (names.dob === "") {
              alert('DOB field is requred');
-        }else if (names.phone === "") {
+        } else if (names.dob.length !== 10 ) {
+            alert('DOB field is invalid');
+       }
+        else if (names.phone === "") {
             alert('password length greater five');
        } else if (names.phone.length < 5) {
             alert('password length greater five');
@@ -50,10 +53,16 @@ const Register = () => {
           password: names.password,
         }).then((response) => {
             console.log(response.data)
+            if(response.data === "Exist")
+            {
+                alert("Email Already Exist")
+            }
+            else{
+              alert("Registration Successful")
+               navigate("/login")
+            }
         })
-          alert("user Registered")
-           navigate("/login")
-
+       
        }
         
       };

@@ -23,6 +23,26 @@ const Edit = () => {
     }
 
     const handleSubmit =async(e)=>{
+        if (formvalue.Email === "") {
+            alert('email field is requred');
+           
+        } else if (!formvalue.Email.includes("@")) {
+            alert('plz enter valid email addres');
+           
+        } else if (formvalue.Password === "") {
+            alert('password field is requred');
+          
+        } else if (formvalue.Password.length < 5) {
+            alert('password length greater five');
+           } 
+           else if (formvalue.DOB === "") {
+            alert('DOB field is requred');
+          
+        }
+           else if (formvalue.DOB.length !== 10) {
+            alert('Enter Valid DOB');
+           
+        }else {
         e.preventDefault();
         axios.put("http://localhost:3001/update/"+id, {
             firstname: formvalue.Firstname,
@@ -36,7 +56,7 @@ const Edit = () => {
              setTimeout( ()=>{               
                 navigate('/');
             }, 2000);
-          })
+          })}
        } 
     return <div>
         <div className="container">

@@ -13,6 +13,10 @@ const Register = () => {
         email: "",
         password: "",
       });
+      const [blur, setblur] = useState("noblur")
+      const [loading, setloading] = useState("noloader")
+  
+  
       const handleChange = e => {
         const { name, value } = e.target
         setName({
@@ -22,29 +26,48 @@ const Register = () => {
       
     }
     const addEmployee = () => {
+        setblur("blur");
+        setloading("loader");
         
         if (names.firstname === "") {
             alert(' First name field is requred!'
-            );
+            );  setblur("noblur");
+            setloading("noloader");
         } else if (names.lastname === "") {
              alert('Last name field is requred');
+             setblur("noblur");
+             setloading("noloader");
         } else if (!names.email.includes("@")) {
              alert('plz enter valid email addres');
+             setblur("noblur");
+             setloading("noloader");
         } else if (names.dob === "") {
              alert('DOB field is requred');
+             setblur("noblur");
+             setloading("noloader");
         } else if (names.dob.length !== 10 ) {
             alert('DOB field is invalid');
+            setblur("noblur");
+            setloading("noloader");
        }
         else if (names.phone === "") {
             alert('password length greater five');
+            setblur("noblur");
+            setloading("noloader");
        } else if (names.phone.length < 5) {
             alert('password length greater five');
+            setblur("noblur");
+            setloading("noloader");
        } else if (names.password === "") {
             alert('password field is requred');
+            setblur("noblur");
+            setloading("noloader");
        } else if (names.password.length < 5) {
             alert('password length greater five');
+            setblur("noblur");
+            setloading("noloader");
        } else {
-        Axios.post("http://localhost:3001/create", {
+        Axios.post("https://backend-ev12.onrender.com/create", {
           firstname: names.firstname,
           lastname: names.lastname,
           phone: names.phone,
@@ -56,10 +79,14 @@ const Register = () => {
             if(response.data === "Exist")
             {
                 alert("Email Already Exist")
+                setblur("noblur");
+                setloading("noloader");
             }
             else{
               alert("Registration Successful")
                navigate("/login")
+               setblur("noblur");
+               setloading("noloader");
             }
         })
        
@@ -67,6 +94,9 @@ const Register = () => {
         
       };
     return <div>
+         <div className={blur}>
+                <div className={loading}></div>
+            </div>
        <div className="register">
        <h1>Register</h1>
        <input type="text" name="firstname" value={names.firstname} onChange={handleChange} placeholder="Enter your First name"></input>

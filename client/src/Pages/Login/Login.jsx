@@ -8,27 +8,39 @@ const Login = () => {
         email: "",
         password: ""
     })
-
+    const [blur, setblur] = useState("noblur")
+    const [loading, setloading] = useState("noloader")
     const adddata= () => {
+        setblur("blur");
+        setloading("loader");
         if (user.email === "") {
             alert('email field is requred');
+            setblur("noblur");
+            setloading("noloader");
            
         } else if (!user.email.includes("@")) {
             alert('plz enter valid email addres');
+            setblur("noblur");
+            setloading("noloader");
            
         } else if (user.password === "") {
             alert('password field is requred');
+            setblur("noblur");
+            setloading("noloader");
           
         } else if (user.password.length < 5) {
             alert('password length greater five');
+            setblur("noblur");
+            setloading("noloader");
            
         } else {
-        axios.post("http://localhost:3001/login", {
+        axios.post("https://backend-ev12.onrender.com/login", {
           email: user.email,
           password: user.password,
         }).then((response) => {
             console.log(response.data)
-          
+            setblur("noblur");
+            setloading("noloader");
             if(response.data.id ==="" || response.data === "wrong input")
             {   alert(response.data)
                 
@@ -51,6 +63,9 @@ const Login = () => {
     }
 
     return <div>
+         <div className={blur}>
+                <div className={loading}></div>
+            </div>
         <div className="container">
                 <div className="login">
                     <h1>Login</h1>

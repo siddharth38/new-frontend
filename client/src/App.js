@@ -1,6 +1,4 @@
 import "./App.css";
-import { useState } from "react";
-import Axios from "axios";
 import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -10,15 +8,7 @@ import Navbar from "./Component/Navbar/Navbar";
 import Privateroutes from "./Component/Privateroutes/Privateroutes";
 
 function App() {
-  const [names, setName] = useState({
-    firstname: "",
-    lastname: "",
-    phone: "",
-    dob: "",
-    email: "",
-    password: "",
-  });
-
+ 
 
   return (
     <div className="App">

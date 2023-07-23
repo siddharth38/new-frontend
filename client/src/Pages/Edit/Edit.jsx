@@ -7,13 +7,15 @@ const Edit = () => {
     const navigate= useNavigate();  
     const [formvalue, setFormvalue] = useState({Firstname:'', Lastname:'', Email:'' ,Phone : '' ,DOB : '' , Password: ''});
     const [message, setMessage]= useState('');
+    const [blur, setblur] = useState("noblur")
+    const [loading, setloading] = useState("noloader")
     useEffect(() => {
 
         userRowdata();
     }, []);
 
     const userRowdata = () => {
-        axios.get("http://localhost:3001/employees/" + id).then((response) => {
+        axios.get("https://backend-ev12.onrender.com/employees/" + id).then((response) => {
             setFormvalue(response.data)
         });
     }
@@ -23,28 +25,40 @@ const Edit = () => {
     }
 
     const handleSubmit =async(e)=>{
+        setblur("blur");
+        setloading("loader");
         if (formvalue.Email === "") {
             alert('email field is requred');
+            setblur("noblur");
+            setloading("noloader");
            
         } else if (!formvalue.Email.includes("@")) {
             alert('plz enter valid email addres');
+            setblur("noblur");
+            setloading("noloader");
            
         } else if (formvalue.Password === "") {
             alert('password field is requred');
+            setblur("noblur");
+            setloading("noloader");
           
         } else if (formvalue.Password.length < 5) {
             alert('password length greater five');
+            setblur("noblur");
+            setloading("noloader");
            } 
            else if (formvalue.DOB === "") {
             alert('DOB field is requred');
-          
+            setblur("noblur");
+            setloading("noloader");
         }
            else if (formvalue.DOB.length !== 10) {
             alert('Enter Valid DOB');
-           
+            setblur("noblur");
+             setloading("noloader");
         }else {
         e.preventDefault();
-        axios.put("http://localhost:3001/update/"+id, {
+        axios.put("https://backend-ev12.onrender.com/update/"+id, {
             firstname: formvalue.Firstname,
             lastname: formvalue.Lastname,
             phone: formvalue.Phone,
@@ -52,6 +66,8 @@ const Edit = () => {
             email: formvalue.Email,
             password: formvalue.Password,
           }).then((response) => {
+            setblur("noblur");
+            setloading("noloader");
              setMessage("User updated SuccessFully")
              setTimeout( ()=>{               
                 navigate('/');
@@ -59,6 +75,9 @@ const Edit = () => {
           })}
        } 
     return <div>
+         <div className={blur}>
+                <div className={loading}></div>
+            </div>
         <div className="container">
             <div className="row">
                 <div className="col-md-6 mt-4">

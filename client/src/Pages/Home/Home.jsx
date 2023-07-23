@@ -11,28 +11,36 @@ const Home = () => {
     };
   }, [])
 
-
+  const [blur, setblur] = useState("noblur")
+  const [loading, setloading] = useState("noloader")
   const [employeeList, setEmployeeList] = useState([]);
 
   const getEmployees = () => {
-    Axios.get("http://localhost:3001/employees").then((response) => {
+    Axios.get("https://backend-ev12.onrender.com/employees").then((response) => {
       setEmployeeList(response.data);
     });
   };
 
 
   const deleteEmployee = (id) => {
-    Axios.delete(`http://localhost:3001/delete/${id}`).then((response) => {
+    setblur("blur");
+    setloading("loader");
+    Axios.delete(`https://backend-ev12.onrender.com/delete/${id}`).then((response) => {
       setEmployeeList(
         employeeList.filter((val) => {
           return val.id != id;
+         
         })
       );
+      setblur("noblur");
+      setloading("noloader");
     });
   };
 
   return <div>
-
+    <div className={blur}>
+                <div className={loading}></div>
+            </div>
 
     <div className="container">
       <div className="row">
